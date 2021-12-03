@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_dialog_email.xml" value="0.33240740740740743" />
+        <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.21614583333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_layout.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/calendar_bar_layout.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.33" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.4036458333333333" />
