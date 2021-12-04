@@ -1,19 +1,24 @@
 package com.example.studyapp;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentStateAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
-        super(fm);
+    public PagerAdapter(FragmentManager fm, Lifecycle lc, int NumOfTabs) {
+        super(fm,lc);
         this.mNumOfTabs = NumOfTabs;
     }
 
+
+
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         switch (position) {
             case 0: return new PlanFragment();
             case 1: return new ExamFragment();
@@ -24,7 +29,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return mNumOfTabs;
     }
 }

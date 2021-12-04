@@ -6,23 +6,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    DataBase DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DB = DataBase.getInstance(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ActionBarDrawerToggle toggle =
@@ -48,13 +59,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Use PagerAdapter to manage page views in fragments.
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager2 viewPager = (ViewPager2) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), getLifecycle(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         // Setting a listener for clicks.
-        viewPager.addOnPageChangeListener(new
-                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.getTabAt(position).select();
+                super.onPageSelected(position);
+            }
+        });
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -96,5 +112,180 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 return false;
         }
+    }
+    public void Refresh(View v){
+        recreate();
+    }
+    public void InsertPlan(View v){
+        Date start;
+        String startT;
+        Date end;
+        String endT;
+        try {
+            startT = ((EditText) findViewById(R.id.StartDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            startT = startT + " " +((EditText) findViewById(R.id.StartTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = ((EditText) findViewById(R.id.EndDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = endT + " " +((EditText) findViewById(R.id.EndTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            start = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(startT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing starting date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            end = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(endT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing ending date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DB.insertData(((EditText)findViewById(R.id.EventTitle)).getText().toString(),((EditText)findViewById(R.id.EventDesc)).getText().toString(),start,end,0 );
+    }
+    public void InsertAssignment(View v){
+        Date start;
+        String startT;
+        Date end;
+        String endT;
+        try {
+            startT = ((EditText) findViewById(R.id.StartDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            startT = startT + " " +((EditText) findViewById(R.id.StartTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = ((EditText) findViewById(R.id.EndDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = endT + " " +((EditText) findViewById(R.id.EndTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            start = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(startT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing starting date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            end = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(endT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing ending date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DB.insertData(((EditText)findViewById(R.id.EventTitle)).getText().toString(),((EditText)findViewById(R.id.EventDesc)).getText().toString(),start,end,1 );
+    }
+    public void InsertExam(View v){
+        Date start;
+        String startT;
+        Date end;
+        String endT;
+        try {
+            startT = ((EditText) findViewById(R.id.StartDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            startT = startT + " " +((EditText) findViewById(R.id.StartTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = ((EditText) findViewById(R.id.EndDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = endT + " " +((EditText) findViewById(R.id.EndTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            start = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(startT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing starting date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            end = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(endT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing ending date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DB.insertData(((EditText)findViewById(R.id.EventTitle)).getText().toString(),((EditText)findViewById(R.id.EventDesc)).getText().toString(),start,end,2 );
+    }
+    public void InsertLec(View v){
+        Date start;
+        String startT;
+        Date end;
+        String endT;
+        try {
+            startT = ((EditText) findViewById(R.id.StartDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            startT = startT + " " +((EditText) findViewById(R.id.StartTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Starting Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = ((EditText) findViewById(R.id.EndDate)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Date format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            endT = endT + " " +((EditText) findViewById(R.id.EndTime)).getText().toString();
+        }catch(Exception e){
+            Toast.makeText(this, "Ending Time format Incorrect!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            start = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(startT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing starting date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            end = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.US).parse(endT);
+        }catch(Exception e){
+            Toast.makeText(this, "Error while parsing ending date!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DB.insertData(((EditText)findViewById(R.id.EventTitle)).getText().toString(),((EditText)findViewById(R.id.EventDesc)).getText().toString(),start,end,3 );
     }
 }
