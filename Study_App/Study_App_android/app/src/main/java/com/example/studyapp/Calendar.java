@@ -91,7 +91,37 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             compactCalendar.addEvent(ev1);
 
         }
+        List<Event> d = compactCalendar.getEvents(date);
+        int Np = 0,Ne = 0, Na = 0,Nl = 0;
+        for(int i = 0;i<d.size();i++){
+            Event k = d.get(i);
+            event o = (event) k.getData();
+            switch(o.getType()){
+                case 0:
+                    //PAEL
+                    Np++;
+                    break;
+                case 1:
+                    Na++;
+                    break;
+                case 2:
+                    Ne++;
+                    break;
+                case 3:
+                    Nl++;
+                    break;
+            }
 
+        }
+        // add database queries and stuff to set text views here
+        TextView np = findViewById(R.id.num_plans_text);
+        TextView ne = findViewById(R.id.num_exams_text);
+        TextView na = findViewById(R.id.num_assignments_text);
+        TextView nl = findViewById(R.id.num_lectures_text);
+        np.setText(String.valueOf(Np));
+        ne.setText(String.valueOf(Ne));
+        na.setText(String.valueOf(Na));
+        nl.setText(String.valueOf(Nl));
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override

@@ -1,0 +1,13 @@
+All the tutorials in the resources provided on Moodle + 
+1) https://stackoverflow.com/questions/6989583/what-is-the-value-of-toast-length-long-and-toast-length-short
+2) https://stackoverflow.com/questions/60414324/adding-events-to-compactcalendar-calendarview-in-android-studio-java-from-api
+3) https://stackoverflow.com/questions/21746087/does-android-studio-need-internet-connection-to-build-project
+4) https://stackoverflow.com/questions/64935558/how-to-add-a-horizontal-scroll-indicator-for-android-tablayout/65022681
+5) https://stackoverflow.com/questions/11015646/how-to-restart-main-activity
+6) https://stackoverflow.com/questions/4207880/android-how-do-i-prevent-the-soft-keyboard-from-pushing-my-view-up
+7) https://stackoverflow.com/questions/20899456/unable-to-scroll-the-view-in-android
+8) https://stackoverflow.com/questions/7510219/deleting-row-in-sqlite-in-android
+9) https://stackoverflow.com/questions/14439941/passing-data-between-fragments-to-activity
+10) https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+11) https://all-learning.com/android-viewpager2/
+12) https://android--examples.blogspot.com/2016/06/android-appbarlayout-example.html
